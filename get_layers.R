@@ -1,7 +1,6 @@
 #!/usr/bin/Rscript
 
 library(methods)
-library(utils)
 library(argparser)
 library(XML)
 
