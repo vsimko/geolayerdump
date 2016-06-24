@@ -1,7 +1,6 @@
 #!/usr/bin/Rscript
 
 library(methods)
-library(utils)
 library(argparser)
 
 p <- arg_parser("This script downloads a list of available layers from a geoserver")
