@@ -18,14 +18,19 @@ p <- add_argument(p, "--output", help = "
                   This parameter specifies an alternative location, where the
                   results should be stored.")
 
-argv <- parse_args(p)
+# argv <- parse_args(p)
+argv <- list(
+  URL = "http://map.bumprecorder.com/geoserver",
+  keep_xml = TRUE,
+  output = ""
+)
 
 # download layers information
-get_request <- 'http://map.bumprecorder.com/geoserver/wms?request=GetCapabilities&service=WMS'
-layers_xml <- xmlParse(get_request)
+# get_request <- 'http://map.bumprecorder.com/geoserver/wms?request=GetCapabilities&service=WMS'
+layers_xml <- xmlParse(argv$URL)
 
 # store raw xml file
-if (TRUE) {
+if (argv$keep_xml) {
   date <- Sys.Date()
   saveXML(layers_xml, file = paste0(date, '-layers.xml'))
 }
@@ -38,7 +43,3 @@ list_of_layers <- xpathApply(layers_xml, path = '//ns:Layer/ns:Name/text()',
                              })
 
 
-
-
-
-print(argv)
