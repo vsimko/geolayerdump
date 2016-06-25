@@ -11,7 +11,8 @@ p <- add_argument(p, "URL",  help = "
 
 p <- add_argument(p, "--keep-xml", help = "
                   If specified, the orignal XML from Geoserver will also be
-                  stored.")
+                  stored.",
+                  default=TRUE)
 
 p <- add_argument(p, "--output", help = "
                   By default, the output will be printed to standard output.
