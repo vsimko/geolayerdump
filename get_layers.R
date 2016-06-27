@@ -33,12 +33,12 @@ layers_xml <- xmlParse(get_request)
 # store raw xml file
 if (argv$keep_xml) {
   date <- Sys.Date()
-  saveXML(layers_xml, file = paste0(date, '-layers.xml'))
+  invisible(saveXML(layers_xml, file = paste0(date, '-layers.xml')))
 }
 
 # print layer names (as return)
 list_of_layers <- xpathApply(layers_xml, path = '//ns:Layer/ns:Name/text()',
                              namespaces = c(ns=getDefaultNamespace(layers_xml, simplify = TRUE)),
                              fun = function(x) {
-                               print(trimws(toString.XMLNode(x)))
+                               cat(paste0(trimws(toString.XMLNode(x)), "\n"))
                              })
