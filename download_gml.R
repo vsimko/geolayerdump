@@ -56,29 +56,30 @@ i <- 0
 invisible(lapply(layers_to_download, FUN = function(x) {
   cat(paste0(Sys.time(), "\n"))
   date <- Sys.Date()
-  # 
-  # ### kml
-  # result = tryCatch({
-  #   # download kml layer
-  #   file_name <- paste0(date, '-', x, '.kml')
-  #   print(paste0("download and store: ", file_name))
-  #   get_request <- paste0(argv$URL, "/kml?", x)
-  #   layers_dump <- GET(get_request)
-  #   
-  #   # store kml layer
-  #   invisible(write(content(layers_dump, "text"), file = file_name))
-  # }, warning = print, error = print)
-  
-  ### gml
+
+  ### kml
   result = tryCatch({
-    # download gml layer
-    file_name <- paste0('./', argv$DIR, '/', date, '-', x, '.gml')
+    # download kml layer
+    file_name <- paste0('./', argv$DIR, '/', date, '-', x, '.kml')
     cat(paste0("download and store: ", file_name), "\n")
     dir.create(dirname(file_name), showWarnings = FALSE)
-    get_request <- paste0(argv$URL, "/brw_001/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=", x, "&maxFeatures=1")
+    get_request <- paste0(argv$URL, "/brw_001/wms/kml?layers=", x)
     layers_dump <- GET(get_request)
     
     # store gml layer
     invisible(write(content(layers_dump, "text", encoding = "UTF-8"), file = file_name))
   }, warning = print, error = print)
+  
+  # ### gml
+  # result = tryCatch({
+  #   # download gml layer
+  #   file_name <- paste0('./', argv$DIR, '/', date, '-', x, '.gml')
+  #   cat(paste0("download and store: ", file_name), "\n")
+  #   dir.create(dirname(file_name), showWarnings = FALSE)
+  #   get_request <- paste0(argv$URL, "/brw_001/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=", x, "&maxFeatures=1")
+  #   layers_dump <- GET(get_request)
+  #   
+  #   # store gml layer
+  #   invisible(write(content(layers_dump, "text", encoding = "UTF-8"), file = file_name))
+  # }, warning = print, error = print)
 }))
