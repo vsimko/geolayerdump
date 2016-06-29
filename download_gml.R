@@ -73,7 +73,7 @@ dummy_var <- lapply(layers_to_download, FUN = function(x) {
     file_name <- paste0('./', argv$DIR, '/', date, '-', x, '.gml')
     cat(paste0("download and store: ", file_name), "\n")
     dir.create(dirname(file_name), showWarnings = FALSE)
-    get_request <- paste0(argv$URL, "/brw_001/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=", x, "&maxFeatures=1")
+    get_request <- paste0(argv$URL, "/brw_001/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=", x)#, "&maxFeatures=1")
     download.file(get_request, destfile = file_name, method = "wget", quiet = TRUE)
     
     # layers_dump <- GET(get_request)
