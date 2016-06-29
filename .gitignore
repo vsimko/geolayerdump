@@ -4,3 +4,7 @@
 .Ruserdata
 layers.xml
 *.Rproj
+*.log
+*.xml
+*.gml
+*.kml
