@@ -54,7 +54,7 @@ layers_to_download <- setdiff(alllayers, donelayers)
 i <- 0
 
 invisible(lapply(layers_to_download, FUN = function(x) {
-  cat(paste0(Sys.time()))
+  cat(paste0(Sys.time(), "\n"))
   date <- Sys.Date()
   # 
   # ### kml
@@ -73,12 +73,12 @@ invisible(lapply(layers_to_download, FUN = function(x) {
   result = tryCatch({
     # download gml layer
     file_name <- paste0('./', argv$DIR, '/', date, '-', x, '.gml')
-    cat(paste0("download and store: ", file_name))
+    cat(paste0("download and store: ", file_name), "\n")
     dir.create(dirname(file_name), showWarnings = FALSE)
-    get_request <- paste0(argv$URL, "/brw_001/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=", x, "&maxFeatures=50")
+    get_request <- paste0(argv$URL, "/brw_001/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=", x, "&maxFeatures=1")
     layers_dump <- GET(get_request)
     
     # store gml layer
-    invisible(write(content(layers_dump, "text"), file = file_name))
+    invisible(write(content(layers_dump, "text", encoding = "UTF-8"), file = file_name))
   }, warning = print, error = print)
 }))
