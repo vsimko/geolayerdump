@@ -1,7 +1,7 @@
 # geolayerdump
 
-Incremental snapshots of the dumps using **duplicity**:
 
+## Incremental snapshots using **duplicity**:
 ``` sh
 duplicity -vi \
   --allow-source-mismatch \
@@ -11,3 +11,13 @@ duplicity -vi \
 
 - `-vi` = verbosity level is "info"
 - `--allow-source-mismatch` allows that the names of source dirs can be changed
+
+## Listing existing snapshots
+``` sh
+duplicity colletion-status file://path/to/my/snapshot/dir
+```
+
+## Restoring a snapshot
+``` sh
+duplicity restore file://path/to/my/snapshot/dir /path/to/output/dir
+```
