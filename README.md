@@ -2,7 +2,7 @@
 
 
 ## Incremental snapshots using **duplicity**:
-``` sh
+```
 duplicity -vi \
   --allow-source-mismatch \
   --no-encryption \
@@ -13,12 +13,12 @@ duplicity -vi \
 - `--allow-source-mismatch` allows that the names of source dirs can be changed
 
 ## Listing existing snapshots
-``` sh
+```
 duplicity colletion-status file://path/to/my/snapshot/dir
 ```
 
 ## Restoring a snapshot
-``` sh
+```
 duplicity restore \
   --no-encryption \
   --time 2016-06-30T11:00:00 \
