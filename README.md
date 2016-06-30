@@ -19,5 +19,8 @@ duplicity colletion-status file://path/to/my/snapshot/dir
 
 ## Restoring a snapshot
 ``` sh
-duplicity restore file://path/to/my/snapshot/dir /path/to/output/dir
+duplicity restore \
+  --no-encryption \
+  --time 2016-06-30T11:00:00 \
+  file://path/to/my/snapshot/dir path/to/output/dir
 ```
