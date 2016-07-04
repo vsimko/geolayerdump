@@ -17,3 +17,11 @@ duplicity colletion-status file://path/to/my/snapshot/dir
 ```
 duplicity restore --no-encryption --time 2016-06-30T11:00:00 file://path/to/snapshot/dir path/to/output/dir
 ```
+
+
+## Rename stuff by removing prefix from filename
+Assuming you are in some directory which contains files and the prefix is "PREFIX"
+(This is just a quick and dirty method, there is certainly a better way to do so)
+```
+find . | while read F; do mv $F ${F#./PREFIX}; done
+```
