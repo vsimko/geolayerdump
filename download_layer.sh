@@ -48,7 +48,12 @@ sort | head -1 | while read OLDEST; do
 
   if wget --output-document="$TMP" "$DOWNLOAD_URL" --limit-rate=1m
   then
+
     echo -n "Download successful, now formatting XML ... "
+
+    # Formatting the XML using xmllint.
+    # The "fid" XML attribute changes on every request which renders incremental
+    # backup useless. Therefore we remove it automatically using sed.
     xmllint --format "$TMP" | sed 's/\s*fid="[^"]*"//' > "$SAVETOFILE"
     echo "ok"
 
