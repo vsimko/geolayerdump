@@ -44,6 +44,7 @@ sort | head -1 | while read OLDEST; do
   echo "DOWNLOAD: $DOWNLOAD_URL to $SAVETOFILE"
 
   # loading metadata sidecar file
+  # this should be the only place, where we load the file
   if [ -f "$METANAME" ]; then
     source "$METANAME"
   fi
@@ -87,6 +88,7 @@ sort | head -1 | while read OLDEST; do
   fi
 
   # store updated metadata in a sidecar file
+  # this should be the only place, where we store the file
   typeset -p DOWNLOAD_COUNT DOWNLOAD_BEGIN DOWNLOAD_END > "$METANAME"
 done
 
