@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# TODO: add some sighandlers to cleanup temp stuff automatically
+# TODO: add more CLI parameters
+# TODO: add different return codes
+# TODO: look inside the downloaded XML and perform some sanity checks
+# TODO: removing "fid" using sed works but it might be cleaner to use xmllint
+# NOTE: potential security risk: we are "sourcing" the sidecar *.meta files for simplicity
+
 function usage() {
   echo USAGE: $(basename "$0") URL DIR
   exit 1
