@@ -17,7 +17,7 @@ DIR="$2" # e.g. /path/to/my/mydir
 [[ -z "$1" ]] && usage
 [[ -z "$2" ]] && usage
 
-TMP=`mktemp geo-download.XXXXX`
+TMP=`mktemp gml-XXXXX.download`
 
 # list all files, but just GML files
 # filter: we need files older than 1 day (-daystart \! -mtime 0)
