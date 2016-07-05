@@ -6,6 +6,7 @@ function usage() {
 }
 
 RETRY_LIMIT=3
+LIMIT_RATE="1m" # max download rate for wget
 DOWNLOAD_BEGIN="NEVER"
 DOWNLOAD_END="NEVER"
 
@@ -46,7 +47,7 @@ sort | head -1 | while read OLDEST; do
   # timestamp of the beginning of download
   TMPBEGIN=`date '+%Y-%m-%d %H:%M:%S'`
 
-  if wget --output-document="$TMP" "$DOWNLOAD_URL" --limit-rate=1m
+  if wget --output-document="$TMP" "$DOWNLOAD_URL" --limit-rate="$LIMIT_RATE"
   then
 
     echo -n "Download successful, now formatting XML ... "
