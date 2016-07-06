@@ -24,6 +24,21 @@ DIR="$2" # e.g. /path/to/my/mydir
 [[ -z "$1" ]] && usage
 [[ -z "$2" ]] && usage
 
+# sanity check: data should always be downloaded from the same base URL
+if [ -f "$DIR/download.url" ]; then
+  DURL=`head -1 "$DIR/download.url"`
+  [[ "$DURL" != "$URL" ]] && {
+    echo "Using different URL as before:"
+    echo " - Current URL:  $URL"
+    echo " - Previous URL: $DURL"
+    echo "   (override by deleting the file '$DIR/download.url')"
+    exit 2
+  }
+else
+  # saving the URL
+  echo "$URL" > "$DIR/download.url"
+fi
+
 ( # LOCK the directory (non-blocking)
   flock -n 9 || {
     echo "already running"
