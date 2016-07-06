@@ -6,12 +6,16 @@
 # TODO: removing "fid" using sed works but it might be cleaner to use xmllint
 # NOTE: potential security risk: we are "sourcing" the sidecar *.meta files for simplicity
 
-# TODO: add different return codes
 # Return codes:
 # 0 = OK
 # 1 = wrong CLI parameters
 # 2 = using different download URL as before
 # 3 = another instance already running in the specified dir
+
+# TODO:
+#   add return codes for:
+#   - unable to download
+#   - update to download + retry limit reached
 
 function usage() {
   echo USAGE: $(basename "$0") URL DIR
