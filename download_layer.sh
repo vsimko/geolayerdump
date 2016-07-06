@@ -18,13 +18,21 @@ function usage() {
   exit 1
 }
 
+# store the width of our terminal
+NCOL=`stty size --file=/dev/stdin | cut -d" " -f2`
+
+function write_separator() {
+  echo `seq 1 $NCOL | sed 's/^.*//' | tr '\n' '-'`
+}
+
+
 RETRY_LIMIT=3
 LIMIT_RATE="1m" # max download rate for wget
 DOWNLOAD_BEGIN="NEVER"
 DOWNLOAD_END="NEVER"
 
 URL="$1" # e.g. http://mygeoserver.com/geoserver/
-DIR="$2" # e.g. /path/to/my/mydir
+DIR="${2%/}" # e.g. /path/to/my/mydir
 
 # check parameters and show usage
 [[ -z "$1" ]] && usage
@@ -59,6 +67,7 @@ fi
   # if there is no oldest file, just finish
   find "$DIR" -name '*.gml' -daystart \! -mtime 0 -printf "%T@ %f\n" |
   sort | head -1 | while read OLDEST; do
+    write_separator
     FILENAME="${OLDEST/#*.* /}"
     TYPENAME="${FILENAME%.gml}"
     SAVETOFILE="$DIR/$FILENAME"
@@ -66,9 +75,10 @@ fi
     echo "Oldest file: $OLDEST"
 
     # try to download the oldest file
-    # if failed to download, try it N times (keep the counter in a separate file)
     DOWNLOAD_URL="${URL%/}/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=$TYPENAME"
-    echo "DOWNLOAD: $DOWNLOAD_URL to $SAVETOFILE"
+    echo "Download from URL : $DOWNLOAD_URL"
+    echo "Download to file  : $SAVETOFILE"
+    write_separator
 
     # loading metadata sidecar file
     # this should be the only place, where we load the file
@@ -85,6 +95,7 @@ fi
     if wget --output-document="$TMP" "$DOWNLOAD_URL" --limit-rate="$LIMIT_RATE"
     then
 
+      write_separator
       echo -n "Download successful, now formatting XML ... "
 
       # Formatting the XML using xmllint.
